@@ -58,7 +58,30 @@
 \onehalfspacing 
 
 \begin{equation}
-	Family_{ahcs} = \alpha + \sum_{a=0-4,5-9,..}^{85+} \beta_a D(Age)_{ahcs} + \mathbf{\delta}' \mathbf{X}_{hcs} + \gamma_s +
+	Fam_{hcs} = \alpha + \sum_{a=5}^{85+} \beta_a D(Age)_{hcs} + \mathbf{\delta}' \mathbf{X}_{hcs} + \gamma_s + \epsilon_{hcs}
 \end{equation}
+
+
+Household and family in past time. Laslett and Wall.
+
+Want to control for livestock as a wealth variable, and use geography as the interaction term. So it's, conditional on having livestock, are places with more pastoral climates more kin-centric. Want to control for family wealth (hh_live and hh_land), not get hung up on differences between climate area in wealth. So need cluster-specific climate variables. W/in cluster variation in livestock is what? Is probably just difference in wealth - but doesn't tell me about actual effect of livestock. Esp. since livestock includes cattle/draft/pigs/chickens - and limited information to separate out effects. Hence DHS is probably superior for this wealth measure compared to IPUMS. Start with IPUMS to show similarity? Then DHS to show controls work well.
+
+So with cluster-level geography, could also do average values of everything at cluster level. But then doesn't allow for age controls. So need ind level.
+
+Can I use LSMS as well? Better wage controls, do they have sufficient family structure info? 
+
+Do a "diff-in-diff" that looks at the relationship of hh size or kids to wealth w/in rural areas, and compare the slopes across different climate types. 
+
+Cluster-level measures of agricultural type, inherent productivity. 
+
+Over-arching question might be, is family structure related to geography, ancestral group traits, or to development. A horserace, so to speak, and is variation in family structure variation across ancestral groups or geography something that is best seen as just existing differences in development level? 
+
+Does ancestral and geography survive once you include hh level wealth variables? Or are ancestral places just less developed now? How do they compare now to past? Are there differences in family structure really, using IPUMS, that are sig between dev countries today and before? 
+
+How about survey or country-level dev controls? Cluster-level dev measures - like lights, or urban rate, or density, or anything like that? Use that to say something about . 
+
+How does that compare to existing stuff that sames kin-attitudes persist? Maybe through culture, but not through actual family structure - an argument for culture in that sense, even if not practiced. 
+
+
 
 \end{document}
