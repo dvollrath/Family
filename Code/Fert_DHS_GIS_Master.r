@@ -26,6 +26,7 @@ gaezdir <- paste0(mdir,"/data/GAEZ") # GAEZ agro-climatic data
 csidir <- paste0(mdir,"/data/CSI") # Caloric suitability index
 dmspdir <- paste0(mdir,"/data/DMSP") # Caloric suitability index
 grumdir <- paste0(mdir,"/data/GRUMP") # GRUMP data
+gadmdir <- paste0(mdir,"/data/GADM") # GADM data
 kgdir <- paste0(mdir,"/data/Koeppen-Geiger-GIS") # KG data
 
 ## Libraries for use
@@ -40,6 +41,7 @@ setwd(workdir)
 
 ## Load some spatial datasets to save time
 extent <- raster(file.path(grumdir,"glurextents.asc"))
+gadm <- shapefile(file.path(gadmdir,"gadm28_adm2.shp"))
 
 ## Loop through all surveys, creating data
 surveys <- list.dirs(path=dhsdir, recursive=FALSE, full.names = FALSE) # get list of all folders in DHS folder
@@ -50,25 +52,33 @@ for (survey in surveys) { # for each survey
   message(sprintf("Shape file: %s", surveyshp))
   shape <- shapefile(surveyshp) # open shape file for DHS survey
   
+  
   if ("DHSID" %in% names(shape)) { # check for DHSID field
     header <- data.frame("DHSID" = shape$DHSID,
-                       "folder" = survey,
-                       "ccode" = shape$DHSCC,
-                       "cluster" = shape$DHSCLUST)
+                         "folder" = survey,
+                         "ccode" = shape$DHSCC,
+                         "cluster" = shape$DHSCLUST,
+                         "regname" = shape$DHSREGNA,
+                         "lat" = shape$LATNUM,
+                         "lon" = shape$LONGNUM)
   }
   if ("SPAID" %in% names(shape)) { # it may be named SPAID
     header <- data.frame("DHSID" = shape$SPAID,
-                       "folder" = survey,
-                       "ccode" = shape$DHSCC,
-                       "cluster" = shape$DHSCLUST)
+                         "folder" = survey,
+                         "ccode" = shape$DHSCC,
+                         "cluster" = shape$DHSCLUST,
+                         "regname" = shape$DHSREGNA,
+                         "lat" = shape$LATNUM,
+                         "lon" = shape$LONGNUM)
   }
   
-  source(file.path(codedir,"Fert_DHS_EthAtlas.r")) # call Ethnic Atlas neighbor routine
-  source(file.path(codedir,"Fert_DHS_GAEZ.r")) # call GAEZ routine
-  source(file.path(codedir,"Fert_DHS_CSI.r")) # call CSI routine
-  source(file.path(codedir,"Fert_DHS_DMSP.r")) # call DMSP routine
-  source(file.path(codedir,"Fert_DHS_Terrain.r")) # call Ethnic Atlas neighbor routine
-  source(file.path(codedir,"Fert_DHS_GRUMP.r")) # call GRUMP routine to find urban/rural extents
-  source(file.path(codedir,"Fert_DHS_KG.r")) # call KG routine to find KG climate zones
-  source(file.path(codedir,"Fert_DHS_Merge.r")) # call merge routine to create single file
+  #source(file.path(codedir,"Fert_DHS_EthAtlas.r")) # call Ethnic Atlas neighbor routine
+  #source(file.path(codedir,"Fert_DHS_GAEZ.r")) # call GAEZ routine
+  #source(file.path(codedir,"Fert_DHS_CSI.r")) # call CSI routine
+  #source(file.path(codedir,"Fert_DHS_DMSP.r")) # call DMSP routine
+  #source(file.path(codedir,"Fert_DHS_Terrain.r")) # call Ethnic Atlas neighbor routine
+  #source(file.path(codedir,"Fert_DHS_GRUMP.r")) # call GRUMP routine to find urban/rural extents
+  #source(file.path(codedir,"Fert_DHS_KG.r")) # call KG routine to find KG climate zones
+  source(file.path(codedir,"Fert_DHS_GADM.r")) # call GADM routine to get district identifier
+  #source(file.path(codedir,"Fert_DHS_Merge.r")) # call merge routine to create single file
 }

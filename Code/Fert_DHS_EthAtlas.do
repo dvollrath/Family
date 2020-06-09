@@ -46,6 +46,10 @@ gen ea_cous1marr_dum = 0
 replace ea_cous1marr_dum = 1 if inlist(V24,1,2,3,4) // dummy for allowed 1st cousin marriage
 replace ea_cous1marr_dum = . if inlist(V24,0)
 
+gen ea_nocous1marr_dum = 0 
+replace ea_nocous1marr_dum = 1 if inlist(V24,5,6,7,8) // dummy for no allowed 1st cousin marriage
+replace ea_nocous1marr_dum = . if inlist(V24,0)
+
 gen ea_bilateral_dum = 0
 replace ea_bilateral_dum = 1 if inlist(V43,4,5,6) // dummy for bilateral descent
 replace ea_bilateral_dum = . if inlist(V43,0)

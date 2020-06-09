@@ -56,14 +56,16 @@ label variable fem_num_daug_else "Daughters elsewhere"
 capture confirm variable v221
 if !_rc {
 	gen fem_int_marr_first_birth = v221
-	label variable fem_int_marr_first_birth "Interval from marr to 1st birth" 
+	replace fem_int_marr_first_birth = -12 if inlist(v221,996) // assign minus one year if 996, prior to marriage
+	label variable fem_int_marr_first_birth "Interval from marr to 1st birth"
+	
 }
 capture confirm variable v212
 if !_rc {
 	gen fem_age_first_birth = v212
+	replace fem_age_first_birth = . if fem_age_first_birth<13
 	label variable fem_age_first_birth "Age at first birth"
 }
-
 
 // Marriage status
 capture confirm variable v501
